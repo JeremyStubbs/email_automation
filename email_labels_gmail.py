@@ -57,49 +57,9 @@ def main():
         # TODO(developer) - Handle errors from gmail API.
         print(f'An error occurred: {error}')
 
-def create_message(sender, to, subject, message_text):
-  message = MIMEText(message_text)
-  message['to'] = to
-  message['from'] = sender
-  message['subject'] = subject
-  return {'raw': base64.urlsafe_b64encode(message.as_string())}
+
   
-def send_message(service, user_id, message):
-  """Send an email message.
 
-  Args:
-    service: Authorized Gmail API service instance.
-    user_id: User's email address. The special value "me"
-    can be used to indicate the authenticated user.
-    message: Message to be sent.
-
-  Returns:
-    Sent Message.
-  """
-  try:
-    message = (service.users().messages().send(userId=user_id, body=message)
-               .execute())
-    print ('Message Id: %s' % message['id'])
-    return message
-  except (errors.HttpError, error):
-    print ('An error occurred: %s' % error)
-
-text = """\
-Hi,
-How are you?
-Real Python has many great tutorials:
-www.realpython.com"""
-html = """\
-<html>
-  <body>
-    <p>Hi,<br>
-       How are you?<br>
-       <a href="http://www.realpython.com">Real Python</a> 
-       has many great tutorials.
-    </p>
-  </body>
-</html>
-"""
 
 if __name__ == '__main__':
     # main()
